@@ -1,0 +1,11 @@
+.env
+*.kubeconfig
+kubeconfig*
+.kube/
+*.key
+*.csr
+*.crt
+enc.yaml
+*.db
+.DS_Store
+node_modules/
