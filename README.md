@@ -122,4 +122,4 @@ alice.key, alice.csr, alice.crt
 /etc/kubernetes/enc/enc.yaml and any copy of it
 etcd snapshot files (*.db)
 
-Credentials in the examples (change-me, pw) are lab placeholders only.
+Credentials in the examples (change-me, pw) are lab placeholders only.# k8s-admin-lab
