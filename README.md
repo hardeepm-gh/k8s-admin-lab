@@ -34,7 +34,7 @@ Docker, kind, kubectl, Helm, jq, git, Multipass. For Day 41: AWS CLI and eksctl.
 Versions used (fill in as you go):
 
 Tool	Version
-Kubernetes (kind, Weeks 1-7)	TBD
+Kubernetes (kind, Weeks 1-7)	v1.37.0
 Kubernetes (kubeadm, N-1 then N)	TBD
 Calico	TBD
 Envoy Gateway	TBD
