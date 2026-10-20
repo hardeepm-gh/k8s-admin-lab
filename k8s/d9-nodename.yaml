@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Pod
+metadata: {name: pinned, namespace: d9}
+spec:
+  nodeName: lab-worker2
+  containers:
+  - {name: api, image: app:1, imagePullPolicy: IfNotPresent}

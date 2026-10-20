@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: base, namespace: d9}
+spec:
+  replicas: 4
+  selector: {matchLabels: {app: base}}
+  template:
+    metadata: {labels: {app: base}}
+    spec:
+      containers:
+      - name: api
+        image: app:1
+        imagePullPolicy: IfNotPresent
+        resources: {requests: {cpu: 100m}}
