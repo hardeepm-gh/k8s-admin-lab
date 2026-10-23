@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: d11
+  labels: {app: web}
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels: {app: web}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+      - name: api
+        image: app:1
+        imagePullPolicy: IfNotPresent
+        ports: [{containerPort: 3000}]
+        resources:
+          requests: {cpu: 50m, memory: 64Mi}
+          limits: {memory: 128Mi}
+        env:
+        - {name: APP_VERSION, value: "v1"}
