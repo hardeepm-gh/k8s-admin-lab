@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: d12
+spec:
+  selector: {app: wbe}
+  ports:
+  - {name: http, port: 80, targetPort: 3000}
