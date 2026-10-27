@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+  namespace: d13
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: consumer}
+  template:
+    metadata:
+      labels: {app: consumer}
+    spec:
+      containers:
+      - name: c
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - |
+          while true; do
+            echo "$(date +%T) env=$LOG_LEVEL/$DB_PASSWORD vol=$(grep greeting /etc/cfg/app.properties) sub=$(grep greeting /etc/sub/app.properties) secvol=$(cat /etc/secret/DB_PASSWORD)"
+            sleep 5
+          done
+        env:
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef: {name: web-config, key: LOG_LEVEL}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef: {name: web-secret, key: DB_PASSWORD}
+        volumeMounts:
+        - {name: cfg, mountPath: /etc/cfg}
+        - name: cfg
+          mountPath: /etc/sub/app.properties
+          subPath: app.properties
+        - {name: sec, mountPath: /etc/secret, readOnly: true}
+      volumes:
+      - name: cfg
+        configMap: {name: web-config}
+      - name: sec
+        secret: {secretName: web-secret}
