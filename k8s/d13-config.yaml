@@ -4,9 +4,9 @@ metadata:
   name: web-config
   namespace: d13
 data:
-  LOG_LEVEL: "info-v1"
+  LOG_LEVEL: "info-v2"
   app.properties: |
-    greeting=hello-v1
+    greeting=hello-v2
 ---
 apiVersion: v1
 kind: Secret
@@ -15,4 +15,4 @@ metadata:
   namespace: d13
 type: Opaque
 stringData:
-  DB_PASSWORD: "change-me-v1"
+  DB_PASSWORD: "change-me-v2"
