@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+  namespace: d13
+data:
+  LOG_LEVEL: "info-v1"
+  app.properties: |
+    greeting=hello-v1
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: web-secret
+  namespace: d13
+type: Opaque
+stringData:
+  DB_PASSWORD: "change-me-v1"
