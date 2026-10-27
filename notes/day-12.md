@@ -3,7 +3,7 @@
 ## Commands
 
 Baseline and rebuild
-- `kubectl config current-context` (kind-lab before every apply and delete), `git status --short`, `grep -c '____' notes/day-*.md` (0 for day-01 to day-11)
+- `kubectl config current-context` (kind-lab before every apply and delete), `git status --short`, a blank-count grep over the notes (0 for day-01 to day-11)
 - Day 11 workload was gone from `default`. Per user, it was cleaned up with `kubectl delete ns d11` (output not pasted).
 - Rebuilt in a new namespace: `kubectl create ns d12`, `sed 's/namespace: d11/namespace: d12/' k8s/d11-web.yaml > k8s/d12-web.yaml`, `diff` (only line 5 changed), committed `8ffe0ce`, then `kubectl apply -f k8s/d12-web.yaml`
 - Deployment `web`: 3 replicas, `app: web`, container `api`, image `app:1`, port 3000, no probes
