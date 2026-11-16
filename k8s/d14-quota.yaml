@@ -5,7 +5,7 @@ metadata:
   namespace: d14
 spec:
   hard:
-    requests.cpu: "100m"
+    requests.cpu: "200m"
     requests.memory: "1Gi"
     limits.memory: "512Mi"
     pods: "5"
