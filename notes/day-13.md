@@ -78,8 +78,6 @@ Which path needs a restart, as observed:
 
 ## Not observed
 
-- The cleanup (`kubectl delete ns d13`), its duration, and whether `d13` and the Pod are gone. The cleanup output was not pasted.
-- Whether the four Day 13 commits (`9b3905b`, `9321f63`, `d21ad3e`, `a53dc1c`) are pushed. `origin/main` was at `4e40931` after the Day 12 fix.
 - `git status --short` after the commits in Steps 2 to 5.
 - The `kubectl diff` exit code in Step 4.
 - Whether the volume-update delay is stable. One sample.
@@ -88,3 +86,8 @@ Which path needs a restart, as observed:
 - Whether `/etc/secret` is memory-backed. The `drwxrwxrwt` mode is a hint, and the output doesn't show the filesystem type.
 - How long the old Pod took to terminate after the restart.
 - A Pod consuming `web-immutable`, and a delete and recreate of it.
+
+## Cleanup (run at the start of Day 14)
+
+- `time kubectl delete ns d13`: 42.137s. `d13` was still `Active` at 19d, with the `consumer` Deployment and Pod running. After the delete, `d13` was gone from `get ns` and no `consumer` Pod remained.
+- All five Day 13 commits are on `origin/main`, and the notes commit is `f19b904`.
