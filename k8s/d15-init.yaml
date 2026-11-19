@@ -13,7 +13,7 @@ spec:
     - sh
     - -c
     - |
-      until getent hosts gate.d15.svc.cluster.local >/dev/null; do
+      until nslookup gate.d15.svc.cluster.local. >/dev/null 2>&1; do
         echo "$(date +%T) waiting for gate"
         sleep 3
       done
