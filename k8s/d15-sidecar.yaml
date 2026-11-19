@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: native
+  namespace: d15
+spec:
+  terminationGracePeriodSeconds: 30
+  initContainers:
+  - name: sidecar
+    image: busybox:1.36
+    restartPolicy: Always
+    command:
+    - sh
+    - -c
+    - |
+      trap 'echo "sidecar TERM $(date +%T)"; sleep 12; echo "sidecar exit $(date +%T)"; exit 0' TERM
+      echo "sidecar start $(date +%T)"
+      sleep 3600 &
+      wait
+  containers:
+  - name: app
+    image: busybox:1.36
+    command:
+    - sh
+    - -c
+    - |
+      trap 'echo "app TERM $(date +%T)"; sleep 6; echo "app exit $(date +%T)"; exit 0' TERM
+      echo "app start $(date +%T)"
+      sleep 3600 &
+      wait
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: plain
+  namespace: d15
+spec:
+  terminationGracePeriodSeconds: 30
+  containers:
+  - name: helper
+    image: busybox:1.36
+    command:
+    - sh
+    - -c
+    - |
+      trap 'echo "helper TERM $(date +%T)"; sleep 12; echo "helper exit $(date +%T)"; exit 0' TERM
+      echo "helper start $(date +%T)"
+      sleep 3600 &
+      wait
+  - name: app
+    image: busybox:1.36
+    command:
+    - sh
+    - -c
+    - |
+      trap 'echo "app TERM $(date +%T)"; sleep 6; echo "app exit $(date +%T)"; exit 0' TERM
+      echo "app start $(date +%T)"
+      sleep 3600 &
+      wait
