@@ -1,0 +1,6 @@
+service:
+  spec:
+    type: ClusterIP
+ingressClass:
+  isDefaultClass: false
+  name: traefik
