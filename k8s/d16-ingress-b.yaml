@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: b-only
+  namespace: d16
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: b.example.test
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-b
+            port:
+              number: 80
