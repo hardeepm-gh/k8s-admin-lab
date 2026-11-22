@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: c-broken
+  namespace: d16
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: c.example.test
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-missing
+            port:
+              number: 80
