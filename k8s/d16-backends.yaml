@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-a
+  namespace: d16
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: app-a}
+  template:
+    metadata:
+      labels: {app: app-a}
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: web
+        image: busybox:1.36
+        command: ["sh", "-c", "mkdir -p /www && echo 'hello from app-a' > /www/index.html && exec httpd -f -p 8080 -h /www"]
+        ports: [{containerPort: 8080}]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-a
+  namespace: d16
+spec:
+  selector: {app: app-a}
+  ports:
+  - {port: 80, targetPort: 8080}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-b
+  namespace: d16
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: app-b}
+  template:
+    metadata:
+      labels: {app: app-b}
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: web
+        image: busybox:1.36
+        command: ["sh", "-c", "mkdir -p /www && echo 'hello from app-b' > /www/index.html && exec httpd -f -p 8080 -h /www"]
+        ports: [{containerPort: 8080}]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-b
+  namespace: d16
+spec:
+  selector: {app: app-b}
+  ports:
+  - {port: 80, targetPort: 8080}
